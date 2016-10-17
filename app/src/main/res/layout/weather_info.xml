@@ -6,7 +6,7 @@
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="45.0dip"
-        android:background="#ffcd2626"
+        android:background="#5959ab"
         android:gravity="center_vertical" >
 
         <ImageView
@@ -30,7 +30,7 @@
             android:layout_toRightOf="@id/city_seperator"
             android:gravity="center_vertical"
             android:paddingLeft="5dip"
-            android:text="北京天气"
+            android:text="深圳天气"
             android:textColor="#ffffffff"
             android:textSize="22.0sp" />
 
@@ -82,7 +82,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="15.0dip"
         android:singleLine="true"
-        android:text="北京"
+        android:text="深圳"
         android:textColor="@android:color/white"
         android:textSize="40.0sp" />
     <!-- 发布时间 -->
@@ -98,13 +98,24 @@
         android:text="今天18:25发布"
         android:textColor="@android:color/white"
         android:textSize="15.0sp" />
+    <!-- 现在温度 -->
+     <TextView
+         android:id="@+id/temperatureNow"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentLeft="true"
+         android:layout_below="@id/time"
+         android:layout_marginLeft="15dp"
+         android:text="当前温度20度"
+         android:textColor="@android:color/white"
+         android:textSize="15sp" />
     <!-- 湿度信息 -->
     <TextView
         android:id="@+id/humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/time"
+        android:layout_below="@id/temperatureNow"
         android:layout_marginLeft="15.0dip"
         android:singleLine="true"
         android:text="湿度:57%"
@@ -170,7 +181,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:text="重度污染"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/holo_red_light"
             android:textSize="20.0sp" />
     </LinearLayout>
     <!-- 今日天气信息块 -->
@@ -187,18 +198,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-        android:layout_alignParentLeft="true"
+
+        android:layout_alignParentRight="true"
         android:src="@drawable/biz_plugin_weather_qing" />
         <!-- 今日星期 -->
         <TextView
             android:id="@+id/week_today"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dip"
-            android:layout_toRightOf="@id/weather_img"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dp"
             android:singleLine="true"
-            android:text="今天 星期三"
+            android:text="今天 星期二"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
         <!-- 温度范围 -->
@@ -207,8 +219,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/week_today"
-            android:layout_marginLeft="5dip"
-            android:layout_toRightOf="@id/weather_img"
+            android:layout_marginLeft="15dp"
             android:singleLine="true"
             android:text="17℃~28℃"
             android:textColor="@android:color/white"
@@ -219,10 +230,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/temperature"
-            android:layout_marginLeft="5dip"
-            android:layout_toRightOf="@id/weather_img"
+            android:layout_marginLeft="40dip"
             android:singleLine="true"
-            android:text="多云转晴"
+            android:text="BIG SUN"
             android:textColor="@android:color/white"
             android:textSize="20.0sp" />
         <!-- 风力信息 -->
