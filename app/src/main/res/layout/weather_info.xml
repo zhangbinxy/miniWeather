@@ -171,7 +171,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5.0dip"
-                android:src="@drawable/biz_plugin_weather_0_50" />
+                android:src="@drawable/biz_plugin_weather_201_300" />
         </LinearLayout>
         <!-- 污染等级(重度污染) -->
         <TextView
@@ -200,7 +200,7 @@
 
 
         android:layout_alignParentRight="true"
-        android:src="@drawable/biz_plugin_weather_qing" />
+        android:src="@drawable/biz_plugin_weather_wu" />
         <!-- 今日星期 -->
         <TextView
             android:id="@+id/week_today"

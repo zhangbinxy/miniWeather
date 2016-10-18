@@ -13,6 +13,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
     private ImageView mBackBtn;
 
+    @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
 
@@ -22,6 +23,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
         mBackBtn.setOnClickListener(this);
     }
 
+    @Override
     public void onClick(View v){
         switch (v.getId()){
             case R.id.title_back:
