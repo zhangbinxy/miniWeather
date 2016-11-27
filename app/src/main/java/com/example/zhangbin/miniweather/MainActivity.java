@@ -132,7 +132,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     private TodayWeather parseXML(String xmldata) {
-        TodayWeather todayWeather = null;
+        TodayWeather todayWeather = null;//???????????????????????????????????????????????
         int fengxiangCount = 0;
         int fengliCount = 0;
         int dateCount = 0;
@@ -282,12 +282,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String cityCode = sharedPreferences.getString("main_city_code", "101010100");//点击更新按钮后，主界面城市为北京天气
             Log.d("myWeather", cityCode);
 
-//在这里添加按钮选装效果。。。
+//在这里添加按钮旋转效果。。。
 
 
-            if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
+            if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {    //网络状况检查
                 Log.d("myWeather", "网络OK");
-                queryWeatherCode(cityCode);
+                queryWeatherCode(cityCode);     //请求城市代码
 
             } else {
 
@@ -327,34 +327,34 @@ public class MainActivity extends Activity implements View.OnClickListener {
         windTvOrient.setText("风向: " + todayWeather.getFengxiang());
 
         //<!-- 更新空气质量适配图片 根据空气质量显示不同颜色提示 -->
-/*        if (todayWeather.getQuality().equals("优")){
+        if (pmQualityTv.getText().equals("优")){
 
             pmImg.setImageResource(R.drawable.biz_plugin_weather_51_100);
             pmQualityTv.setTextColor(Color.BLUE);
         }
-        if (todayWeather.getQuality().equals("良")){
+        if (pmQualityTv.getText().equals("良")){
 
             pmImg.setImageResource(R.drawable.biz_plugin_weather_101_150);
             pmQualityTv.setTextColor(Color.GRAY);
         }
-        if (todayWeather.getQuality().equals("轻度污染")){
+        if (pmQualityTv.getText().equals("轻度污染")){
 
             pmImg.setImageResource(R.drawable.biz_plugin_weather_151_200);
             pmQualityTv.setTextColor(Color.YELLOW);
         }
-        if (todayWeather.getQuality().equals("中度污染")){
+        if (pmQualityTv.getText().equals("中度污染")){
 
             pmImg.setImageResource(R.drawable.biz_plugin_weather_151_200);
             pmQualityTv.setTextColor(Color.DKGRAY);
         }
-        if (todayWeather.getQuality().equals("严重污染")){
+        if (pmQualityTv.getText().equals("严重污染")){
 
             pmImg.setImageResource(R.drawable.biz_plugin_weather_201_300);
             pmQualityTv.setTextColor(Color.RED);
         }
 
         //更新天气适配图片
-    /*    switch (todayWeather.getType()){
+        switch (todayWeather.getType()){
             case "晴": weatherImg.setImageResource(R.drawable.biz_plugin_weather_qing);
                 break;
             case "暴雪": weatherImg.setImageResource(R.drawable.biz_plugin_weather_baoxue);
@@ -398,7 +398,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             default: break;
 
         }
-*/
+
         Toast.makeText(MainActivity.this, "更新成功!", Toast.LENGTH_SHORT).show();
     }
 }

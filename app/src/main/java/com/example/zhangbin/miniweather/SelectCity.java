@@ -46,7 +46,8 @@ public class SelectCity extends Activity implements View.OnClickListener {
     private ImageView mBackBtn;
 
     private GoogleApiClient client;
-    private String selectedID,nowCity;
+    public String selectedID;
+    public String nowCity;
 
     private TextView currentCity;//点击后上面城市要改变
 
