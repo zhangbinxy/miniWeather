@@ -72,7 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     public Tomorrow1[] strings1 = new Tomorrow1[]{new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1()};
 
-    int i=0;
+
     private Handler mHandler = new Handler() {
 
         public void handleMessage(Message msg) {
@@ -170,6 +170,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         windTvOrient.setText("N/A");
 
 
+       progressBar = (ProgressBar) findViewById(R.id.title_update_progress);
 
         tDay1 = (TextView) medium1.findViewById(R.id.textViewdate1);
         tDay2 = (TextView) medium1.findViewById(R.id.textViewdate2);
@@ -213,6 +214,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int highCount = 0;
         int lowCount = 0;
         int typeCount = 0;
+        int i=0;
+
         try {
             XmlPullParserFactory fac = XmlPullParserFactory.newInstance();
             XmlPullParser xmlPullParser = fac.newPullParser();
@@ -276,6 +279,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 eventType = xmlPullParser.next();
                                 strings1[i].setDate(xmlPullParser.getText());
                                 Log.d("test",strings1[i].getDate());
+                                Log.d("iiiii",i+"");
                                 dateCount++;
                             } else if (xmlPullParser.getName().equals("high")) {
                                 eventType = xmlPullParser.next();
@@ -317,6 +321,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             else if (xmlPullParser.getName().equals("fengli")){
                                 eventType = xmlPullParser.next();
                                 fengliCount++;
+                            }
+                            else if (xmlPullParser.getName().equals("error")){
+
+                                try {
+                                    Log.d("data","null");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                break;
                             }
                         }
                         break;
@@ -399,7 +412,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (view.getId() == R.id.title_update_btn) {
 
 
-            progressBar = (ProgressBar) findViewById(R.id.title_update_progress);
+
           //mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn);
             progressBar.setVisibility(View.VISIBLE);
             mUpdateBtn.setVisibility(View.INVISIBLE);
@@ -425,7 +438,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
+        if (requestCode==1 &&resultCode == RESULT_OK) {
             String newCityCode = data.getStringExtra("cityCode");
             Log.d("myWeather", "选择城市代码为" + newCityCode);
 
@@ -526,7 +539,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case "中雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhongyu);
                 break;
-            default: break;
+
+
+            default: try {
+                Log.d("weatherType","null");
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+                break;
 
         }
 
@@ -562,6 +582,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         tFeng5.setText(strings1[5].getFengli()+" "+strings1[5].getFengxiang());
 
 
+/*        try{
+            Thread.sleep(1000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        */
         progressBar.setVisibility(View.GONE);
         mUpdateBtn.setVisibility(View.VISIBLE);
 

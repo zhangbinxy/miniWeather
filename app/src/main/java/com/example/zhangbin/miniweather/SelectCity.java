@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -88,28 +89,44 @@ public class SelectCity extends Activity implements View.OnClickListener {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(SelectCity.this, "你单击了:"+i, Toast.LENGTH_SHORT).show();
                 selectedID = cityID.get(i);
-                nowCity = data.get(i);
+                  nowCity = data.get(i);
 
                 currentCity = (TextView) findViewById(R.id.title_city_name);//更新城市列表上方城市名称
                 currentCity.setText("当前城市:"+nowCity);//在bar上显示更新后的城市名称
+
+
+                Intent intent = new Intent(SelectCity.this,MainActivity.class);
+                intent.putExtra("cityCode",selectedID);
+                Log.d("cityid",selectedID);
+                setResult(RESULT_OK,intent);
+                finish();
+
+
+
+
+
+
 
             }
         });
     }
 
-    @Override
-    public void onClick(View v){
-        switch (v.getId()){
-            case R.id.title_back:
-                Intent i = new Intent();
-                i.putExtra("cityCode",selectedID);
-                setResult(RESULT_OK,i);
-                finish();
-                break;
-            default:
-                break;
-        }
-    }
+       @Override
+       public void onClick(View v){
+           switch (v.getId()){
+               case R.id.title_back:
+                   Intent i = new Intent();
+                   i.putExtra("cityCode","101010100");
+                   setResult(RESULT_OK,i);
+                   finish();
+                   break;
+
+               default:
+                   break;
+           }
+       }
+
+
     public Action getIndexApiAction() {
         Thing object = new Thing.Builder()
                 .setName("SelectCity Page") // TODO: Define a title for the content shown.
