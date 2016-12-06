@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table1">
+
+            <TextView
+                android:text="date"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewdate4"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="date"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewdate5"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="date"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewdate6"
+                android:gravity="center"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table2"
+            android:layout_below="@+id/table1">
+
+            <TextView
+                android:text="wendu"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewTemp4"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="wendu"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewTemp5"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="wendu"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewTemp6"
+                android:gravity="center"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table3"
+            android:layout_below="@+id/table2">
+
+            <TextView
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewWeather4"
+                android:gravity="center"
+                android:text="tianqi" />
+
+            <TextView
+                android:text="tianqi"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewWeather5"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="tianqi"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewWeather6"
+                android:gravity="center"/>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table4"
+            android:layout_below="@+id/table3">
+
+            <TextView
+                android:text="fengli"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewFeng4"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="fengli"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewFeng5"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="fengli"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewFeng6"
+                android:gravity="center"/>
+        </TableRow>
+
+    </RelativeLayout>
+
+</LinearLayout>

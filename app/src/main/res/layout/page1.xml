@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table1">
+
+            //日期层
+
+            <TextView
+                android:text="date"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewdate1"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="date"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewdate2"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="date"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewdate3"
+                android:gravity="center"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table2"
+            android:layout_below="@+id/table1">
+
+            //气温层
+
+            <TextView
+                android:text="wendu"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewTemp1"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="wendu"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewTemp2"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="wendu"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewTemp3"
+                android:gravity="center"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table3"
+            android:layout_below="@+id/table2">
+
+            //天气状况层
+            <TextView
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewWeather1"
+                android:gravity="center"
+                android:text="tianqi" />
+
+            <TextView
+                android:text="tianqi"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewWeather2"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="tianqi"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewWeather3"
+                android:gravity="center"/>
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:id="@+id/table4"
+            android:layout_below="@+id/table3">
+
+            //风力层
+            <TextView
+                android:text="fengli"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewFeng1"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="fengli"
+                android:layout_width="125dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewFeng2"
+                android:gravity="center"/>
+
+            <TextView
+                android:text="fengli"
+                android:layout_width="130dip"
+                android:layout_height="match_parent"
+                android:id="@+id/textViewFeng3"
+                android:gravity="center"/>
+        </TableRow>
+
+    </RelativeLayout>
+
+</LinearLayout>

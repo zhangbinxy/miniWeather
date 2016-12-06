@@ -15,7 +15,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -36,8 +38,11 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.pku.zhangbin.bean.TodayWeather;
+import cn.edu.pku.zhangbin.bean.pku.ss.zhangbin.Tomorrow1;
 import util.NetUtil;
 
 
@@ -45,19 +50,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final int UPDATE_TODAY_WEATHER = 1;
 
+
     private ImageView mUpdateBtn;
 
     private ImageView mCitySelect;
 
     private TextView cityTv, timeTv, humidityTv, weekTv, pmDataTv, pmQualityTv, temperatureTv, temperatureTvNow,climateTv,
-            windTv, windTvOrient, city_name_Tv;
+            windTv, windTvOrient, city_name_Tv,tDay1,tDay2,tDay3,tDay4,tDay5,tDay6,tWen1,tWen2,tWen3,tWen4,tWen5,tWen6,tType1,
+            tType2,tType3,tType4,tType5,tType6,tFeng1,tFeng2,tFeng3,tFeng4,tFeng5,tFeng6;
     private ImageView weatherImg, pmImg;
 
-
-
+    private View medium1,medium2;//.....................................
+    //更新按钮、点击旋转
     private ProgressBar progressBar;
 
+    //六日天气的滑动界面对象
+    private ViewPager vp;
+    private ViewPagerAdapter vpAdapter;
+    private List<View> views;
 
+
+    public Tomorrow1[] strings1 = new Tomorrow1[]{new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1()};
+
+    int i=0;
     private Handler mHandler = new Handler() {
 
         public void handleMessage(Message msg) {
@@ -78,30 +93,55 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
 
         //Log.d(TAG, "MainActivity->Oncreate");
-        setContentView(R.layout.weather_info);
+        setContentView(R.layout.weather_info);          //把布局设置在主界面上
 
-        mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn);
-        mUpdateBtn.setOnClickListener(this);
+
+        mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn); //跟新的按钮图片来源
+        mUpdateBtn.setOnClickListener(this);                           //这个更新图标可以点击，设置监听器
       //  progressBar = (ProgressBar) findViewById(R.id.progressbar);
 
-        if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
+        if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {     //检查网络连接状况
             Log.d("myWeather", "网络OK");
-            Toast.makeText(MainActivity.this, "网络OK!", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "网络OK!", Toast.LENGTH_LONG).show();  //如果网络连接上，就弹出消息，2秒后自动消失
         } else {
-            Log.d("myWeather", "网络挂了");
+            Log.d("myWeather", "网络挂了");                                             //如果网络没有连接上，弹出消息，2秒后自动消失
             Toast.makeText(MainActivity.this, "网络挂了!", Toast.LENGTH_LONG).show();
         }
 
-        mCitySelect = (ImageView) findViewById(R.id.title_city_manager);
-        mCitySelect.setOnClickListener(this);
+        mCitySelect = (ImageView) findViewById(R.id.title_city_manager); //城市管理图片来源
+        mCitySelect.setOnClickListener(this);                              //图片可点击，设置监听器
 
-        pmImg = (ImageView) findViewById(R.id.pm2_5_img);
+        pmImg = (ImageView) findViewById(R.id.pm2_5_img);//这个有什么用？？？？？？？？？？？？？？？？？
         //pmImg.setImageIcon();
 
-        initView();
+        initViews();
+
+        initView();             //初始化主界面上的布局信息
+
     }
 
-    void initView() {
+
+
+
+
+
+    private void initViews(){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        views = new ArrayList<View>();
+        medium1 = inflater.inflate(R.layout.page1,null);
+        medium2 = inflater.inflate(R.layout.page2,null);
+        views.add(medium1);
+        views.add(medium2);
+        views.add(inflater.inflate(R.layout.page3,null));
+        vpAdapter = new ViewPagerAdapter(views,this);
+        vp = (ViewPager) findViewById(R.id.viewpager);
+        vp.setAdapter(vpAdapter);
+
+
+    }
+
+   private void initView() {
+
         city_name_Tv = (TextView) findViewById(R.id.title_city_name);
         cityTv = (TextView) findViewById(R.id.city);
         timeTv = (TextView) findViewById(R.id.time);
@@ -129,10 +169,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
         windTv.setText("N/A");
         windTvOrient.setText("N/A");
 
+
+
+        tDay1 = (TextView) medium1.findViewById(R.id.textViewdate1);
+        tDay2 = (TextView) medium1.findViewById(R.id.textViewdate2);
+        tDay3 = (TextView) medium1.findViewById(R.id.textViewdate3);
+        tDay4 = (TextView) medium2.findViewById(R.id.textViewdate4);
+        tDay5 = (TextView) medium2.findViewById(R.id.textViewdate5);
+        tDay6 = (TextView) medium2.findViewById(R.id.textViewdate6);
+
+        tWen1 = (TextView) medium1.findViewById(R.id.textViewTemp1);
+        tWen2 = (TextView) medium1.findViewById(R.id.textViewTemp2);
+        tWen3 = (TextView) medium1.findViewById(R.id.textViewTemp3);
+        tWen4 = (TextView) medium2.findViewById(R.id.textViewTemp4);
+        tWen5 = (TextView) medium2.findViewById(R.id.textViewTemp5);
+        tWen6 = (TextView) medium2.findViewById(R.id.textViewTemp6);
+
+        tType1 = (TextView) medium1.findViewById(R.id.textViewWeather1);
+        tType2 = (TextView) medium1.findViewById(R.id.textViewWeather2);
+        tType3 = (TextView) medium1.findViewById(R.id.textViewWeather3);
+        tType4 = (TextView) medium2.findViewById(R.id.textViewWeather4);
+        tType5 = (TextView) medium2.findViewById(R.id.textViewWeather5);
+        tType6 = (TextView) medium2.findViewById(R.id.textViewWeather6);
+
+        tFeng1 = (TextView) medium1.findViewById(R.id.textViewFeng1);
+        tFeng2 = (TextView) medium1.findViewById(R.id.textViewFeng2);
+        tFeng3 = (TextView) medium1.findViewById(R.id.textViewFeng3);
+        tFeng4 = (TextView) medium2.findViewById(R.id.textViewFeng4);
+        tFeng5 = (TextView) medium2.findViewById(R.id.textViewFeng5);
+        tFeng6 = (TextView) medium2.findViewById(R.id.textViewFeng6);
+
+
     }
 
+
+
     private TodayWeather parseXML(String xmldata) {
-        TodayWeather todayWeather = null;//???????????????????????????????????????????????
+        TodayWeather todayWeather = null;//天气信息初始为空
+
         int fengxiangCount = 0;
         int fengliCount = 0;
         int dateCount = 0;
@@ -198,6 +272,51 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 eventType = xmlPullParser.next();
                                 todayWeather.setType(xmlPullParser.getText());
                                 typeCount++;
+                            }else if (xmlPullParser.getName().equals("date")){
+                                eventType = xmlPullParser.next();
+                                strings1[i].setDate(xmlPullParser.getText());
+                                Log.d("test",strings1[i].getDate());
+                                dateCount++;
+                            } else if (xmlPullParser.getName().equals("high")) {
+                                eventType = xmlPullParser.next();
+                                strings1[i].setHigh(xmlPullParser.getText());
+                                Log.d("test",strings1[i].getHigh());
+                                highCount++;
+                            }else if (xmlPullParser.getName().equals("low")){
+                                eventType = xmlPullParser.next();
+                                strings1[i].setLow(xmlPullParser.getText());
+                                Log.d("test",strings1[i].getLow());
+                                lowCount++;
+                            }else if (xmlPullParser.getName().equals("type")&&(typeCount==2||typeCount==4||typeCount==6||typeCount==8)){
+                                eventType = xmlPullParser.next();
+                                typeCount++;
+                                strings1[i].setType(xmlPullParser.getText());
+                                Log.d("test",strings1[i].getType());
+
+                            }else if (xmlPullParser.getName().equals("type")){
+                                eventType = xmlPullParser.next();
+                                typeCount++;
+
+                            }else if (xmlPullParser.getName().equals("fengxiang")&&(fengxiangCount==3||fengxiangCount==5||fengxiangCount==7||fengxiangCount==9)){
+                                eventType = xmlPullParser.next();
+                                fengxiangCount++;
+                                strings1[i].setFengxiang(xmlPullParser.getText());
+                                Log.d("test",strings1[i].getFengxiang());
+
+                            }else if (xmlPullParser.getName().equals("fengli")&&(fengliCount==3||fengliCount==5||fengliCount==7||fengliCount==9)){
+                                eventType = xmlPullParser.next();
+                                fengliCount++;
+                                strings1[i].setFengli(xmlPullParser.getText());
+                                Log.d("test",strings1[i].getFengli());
+                                i++;
+                            }
+                            else if (xmlPullParser.getName().equals("fengxiang")){
+                                eventType = xmlPullParser.next();
+                                fengxiangCount++;
+                            }
+                            else if (xmlPullParser.getName().equals("fengli")){
+                                eventType = xmlPullParser.next();
+                                fengliCount++;
                             }
                         }
                         break;
@@ -267,7 +386,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view) { //重写
 
 
 
@@ -278,8 +397,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         if (view.getId() == R.id.title_update_btn) {
-            SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
-            String cityCode = sharedPreferences.getString("main_city_code", "101010100");//点击更新按钮后，主界面城市为北京天气
+
+
+            progressBar = (ProgressBar) findViewById(R.id.title_update_progress);
+          //mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn);
+            progressBar.setVisibility(View.VISIBLE);
+            mUpdateBtn.setVisibility(View.INVISIBLE);
+
+            SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);//私有信息
+            String cityCode = sharedPreferences.getString("main_city_code", "101010100");//主界面城市北京
             Log.d("myWeather", cityCode);
 
 //在这里添加按钮旋转效果。。。
@@ -287,7 +413,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {    //网络状况检查
                 Log.d("myWeather", "网络OK");
-                queryWeatherCode(cityCode);     //请求城市代码
+                queryWeatherCode(cityCode);//请求城市代码
+
 
             } else {
 
@@ -305,6 +432,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
                 Log.d("myWeather", "网络OK");
                 queryWeatherCode(newCityCode);
+
             } else {
                 Log.d("myWeather", "网络挂了");
                 Toast.makeText(MainActivity.this, "网络挂了！", Toast.LENGTH_LONG).show();
@@ -313,6 +441,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     void updateTodayWeather(TodayWeather todayWeather) {
+
         city_name_Tv.setText(todayWeather.getCity() + "天气");
         cityTv.setText(todayWeather.getCity());
         timeTv.setText(todayWeather.getUpdatetime() + "发布");
@@ -325,6 +454,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         climateTv.setText(todayWeather.getType());
         windTv.setText("风力: " + todayWeather.getFengli());
         windTvOrient.setText("风向: " + todayWeather.getFengxiang());
+
+
 
         //<!-- 更新空气质量适配图片 根据空气质量显示不同颜色提示 -->
         if (pmQualityTv.getText().equals("优")){
@@ -399,6 +530,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         }
 
-        Toast.makeText(MainActivity.this, "更新成功!", Toast.LENGTH_SHORT).show();
+
+        tDay1.setText(strings1[0].getDate());
+        tWen1.setText(strings1[0].getLow()+"~"+strings1[0].getHigh());
+        tType1.setText(strings1[0].getType());
+        tFeng1.setText(strings1[0].getFengli()+" "+strings1[0].getFengxiang());
+
+        tDay2.setText(strings1[1].getDate());
+        tWen2.setText(strings1[1].getLow()+"~"+strings1[1].getHigh());
+        tType2.setText(strings1[1].getType());
+        tFeng2.setText(strings1[1].getFengli()+" "+strings1[1].getFengxiang());
+
+        tDay3.setText(strings1[2].getDate());
+        tWen3.setText(strings1[2].getLow()+"~"+strings1[2].getHigh());
+        tType3.setText(strings1[2].getType());
+        tFeng3.setText(strings1[2].getFengli()+" "+strings1[2].getFengxiang());
+
+        tDay4.setText(strings1[3].getDate());
+        tWen4.setText(strings1[3].getLow()+"~"+strings1[3].getHigh());
+        tType4.setText(strings1[3].getType());
+        tFeng4.setText(strings1[3].getFengli()+" "+strings1[3].getFengxiang());
+
+        tDay5.setText(strings1[4].getDate());
+        tWen5.setText(strings1[4].getLow()+"~"+strings1[4].getHigh());
+        tType5.setText(strings1[4].getType());
+        tFeng5.setText(strings1[4].getFengli()+" "+strings1[4].getFengxiang());
+
+        tDay5.setText(strings1[5].getDate());
+        tWen5.setText(strings1[5].getLow()+"~"+strings1[5].getHigh());
+        tType5.setText(strings1[5].getType());
+        tFeng5.setText(strings1[5].getFengli()+" "+strings1[5].getFengxiang());
+
+
+        progressBar.setVisibility(View.GONE);
+        mUpdateBtn.setVisibility(View.VISIBLE);
+
+            Toast.makeText(MainActivity.this, "更新成功!", Toast.LENGTH_SHORT).show();
+
+
+
     }
 }

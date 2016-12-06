@@ -42,6 +42,16 @@
             android:src="@drawable/title_update"/>
 
 
+        //更新按钮布局，要添加新布局使其旋转。
+         <ProgressBar
+             android:id="@+id/title_update_progress"
+             android:layout_alignParentRight="true"
+             android:layout_width="45dip"
+             android:layout_height="45dip"
+             style="@android:style/Widget.ProgressBar.Small"
+             android:visibility="gone"/>
+
+
 
         <ImageView
             android:id="@+id/title_share"
@@ -266,6 +276,16 @@
             </RelativeLayout>
         </RelativeLayout>
         <!-- 六日天气信息 -->
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </android.support.v4.view.ViewPager>
+
+
     <!-- 广告等信息 -->
     </LinearLayout>
 

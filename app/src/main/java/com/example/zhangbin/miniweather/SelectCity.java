@@ -49,7 +49,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
     public String selectedID;
     public String nowCity;
 
-    private TextView currentCity;//点击后上面城市要改变
+    private TextView currentCity;//点击列表城市选项后页面上边城市名称要随之改变
 
 
 
@@ -61,14 +61,15 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
         //setContentView(R.layout.select_city);//发现多余重复的布局设置！！！！！！！！！！！！
 
-        mBackBtn = (ImageView) findViewById(R.id.title_back);
-        mBackBtn.setOnClickListener(this);
+        mBackBtn = (ImageView) findViewById(R.id.title_back);   //后退图案
+        mBackBtn.setOnClickListener(this); //点击事件
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         MyApplication myApplication = (MyApplication) getApplication();
         final List <String> data = new ArrayList<>();
         final List <String> cityID = new ArrayList<>();
         Iterator <City> it = myApplication.getmCityList().iterator();
+
         while(it.hasNext())
         {
             City tmp = it.next();
@@ -77,6 +78,8 @@ public class SelectCity extends Activity implements View.OnClickListener {
             data.add(cityname1);
             cityID.add(cityid1);
         }
+
+        //
         ListView mlistView = (ListView) findViewById(R.id.list_view);
         ArrayAdapter <String> adapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
         mlistView.setAdapter(adapter2);
@@ -88,7 +91,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 nowCity = data.get(i);
 
                 currentCity = (TextView) findViewById(R.id.title_city_name);//更新城市列表上方城市名称
-                currentCity.setText("当前城市:"+nowCity);//只显示了城市代码，如何变为文字呢？
+                currentCity.setText("当前城市:"+nowCity);//在bar上显示更新后的城市名称
 
             }
         });
@@ -98,7 +101,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.title_back:
-                Intent i= new Intent();
+                Intent i = new Intent();
                 i.putExtra("cityCode",selectedID);
                 setResult(RESULT_OK,i);
                 finish();
