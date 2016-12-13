@@ -46,7 +46,7 @@ import cn.edu.pku.zhangbin.bean.pku.ss.zhangbin.Tomorrow1;
 import util.NetUtil;
 
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener ,ViewPager.OnPageChangeListener {
 
     private static final int UPDATE_TODAY_WEATHER = 1;
 
@@ -70,6 +70,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private List<View> views;
 
 
+    private ImageView[] dots;
+    private int[] ids = {R.id.iv1,R.id.iv2,R.id.iv3};//小圆点数组
+
+
+
     public Tomorrow1[] strings1 = new Tomorrow1[]{new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1(),new Tomorrow1()};
 
 
@@ -88,12 +93,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Log.d(TAG, "MainActivity->Oncreate");
         setContentView(R.layout.weather_info);          //把布局设置在主界面上
+
 
 
         mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn); //跟新的按钮图片来源
@@ -118,10 +126,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         initView();             //初始化主界面上的布局信息
 
+        initDots();//忘记了在这里初始化，所以一直报错：空指针异常。解决之后好开心！！！！！！！
     }
 
 
 
+    void initDots(){
+        dots = new ImageView[views.size()];
+        for(int j=0;j<views.size();j++){
+            dots[j] = (ImageView)findViewById(ids[j]);
+        }
+    }
 
 
 
@@ -136,6 +151,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         vpAdapter = new ViewPagerAdapter(views,this);
         vp = (ViewPager) findViewById(R.id.viewpager);
         vp.setAdapter(vpAdapter);
+        vp.setOnPageChangeListener(this);
 
 
     }
@@ -214,7 +230,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int highCount = 0;
         int lowCount = 0;
         int typeCount = 0;
-        int i=0;
+        int i=0;//这个i一定要在这里，之前设置成全局变量导致数组越界。主界面刷新后，城市数据保存在数组中，
+        // 如果是全局变量，新选择城市后自动返回主界面时数据是不会自动清空的，也就是说，新数据没地方放了，
+        // 造成溢出在错误。而这里声明，每次都要重新建立，所以不会溢出。
 
         try {
             XmlPullParserFactory fac = XmlPullParserFactory.newInstance();
@@ -437,7 +455,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {//从激活的SelectCity活动接收返回数据
         if (requestCode==1 &&resultCode == RESULT_OK) {
             String newCityCode = data.getStringExtra("cityCode");
             Log.d("myWeather", "选择城市代码为" + newCityCode);
@@ -594,6 +612,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
             Toast.makeText(MainActivity.this, "更新成功!", Toast.LENGTH_SHORT).show();
 
 
+
+    }
+
+    //重写OnPageChangeListener方法
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int j) {
+        for(int a =0;a<ids.length;a++){
+            if(a == j){
+                dots[a].setImageResource(R.drawable.page_indicator_focused);//选中该页，小圆点为选中式样
+            }
+            else {
+                dots[a].setImageResource(R.drawable.page_indicator_unfocused);//未选中该页，小圆点为未选中式样
+            }
+        }
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
     }
 }

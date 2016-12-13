@@ -86,7 +86,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
         mlistView.setAdapter(adapter2);
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {//设置list view的点击监听
                 Toast.makeText(SelectCity.this, "你单击了:"+i, Toast.LENGTH_SHORT).show();
                 selectedID = cityID.get(i);
                   nowCity = data.get(i);
@@ -95,7 +95,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 currentCity.setText("当前城市:"+nowCity);//在bar上显示更新后的城市名称
 
 
-                Intent intent = new Intent(SelectCity.this,MainActivity.class);
+                Intent intent = new Intent(SelectCity.this,MainActivity.class);//用intent传递选择城市的号码，在点击list view的item后，直接返回主界面并更新选择城市的天气信息
                 intent.putExtra("cityCode",selectedID);
                 Log.d("cityid",selectedID);
                 setResult(RESULT_OK,intent);
@@ -116,7 +116,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
            switch (v.getId()){
                case R.id.title_back:
                    Intent i = new Intent();
-                   i.putExtra("cityCode","101010100");
+                   i.putExtra("cityCode","101010100");//如果点击返回按钮，则硬性规定返回北京的天气
                    setResult(RESULT_OK,i);
                    finish();
                    break;
