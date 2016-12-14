@@ -78,26 +78,26 @@
             android:layout_below="@+id/table2">
 
             //天气状况层
-            <TextView
+            <ImageView
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewWeather1"
                 android:gravity="center"
-                android:text="tianqi" />
+                android:src="@drawable/biz_plugin_weather_qing" />
 
-            <TextView
-                android:text="tianqi"
+            <ImageView
                 android:layout_width="125dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewWeather2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:src="@drawable/biz_plugin_weather_qing"/>
 
-            <TextView
-                android:text="tianqi"
+            <ImageView
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewWeather3"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:src="@drawable/biz_plugin_weather_qing"/>
         </TableRow>
 
 

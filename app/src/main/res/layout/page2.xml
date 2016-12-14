@@ -70,26 +70,26 @@
             android:id="@+id/table3"
             android:layout_below="@+id/table2">
 
-            <TextView
+            <ImageView
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewWeather4"
                 android:gravity="center"
-                android:text="tianqi" />
+                android:src="@drawable/biz_plugin_weather_qing" />
 
-            <TextView
-                android:text="tianqi"
+            <ImageView
                 android:layout_width="125dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewWeather5"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:src="@drawable/biz_plugin_weather_qing"/>
 
-            <TextView
-                android:text="tianqi"
+            <ImageView
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewWeather6"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:src="@drawable/biz_plugin_weather_qing"/>
         </TableRow>
 
 

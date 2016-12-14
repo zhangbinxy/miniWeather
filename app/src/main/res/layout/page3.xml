@@ -4,20 +4,18 @@
     android:layout_height="match_parent"
     android:background="#ff3030">
 
-    <FrameLayout
-        android:layout_width="141dp"
-        android:layout_height="150dp">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
         <TextView
-            android:text="TextView"
-            android:layout_width="87dp"
+            android:text="我是一页广告"
+            android:textSize="50dip"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/textView" />
-    </FrameLayout>
+            android:id="@+id/textView"
+            android:gravity="center"/>
+    </RelativeLayout>
 
-    <FrameLayout
-        android:layout_width="130dp"
-        android:layout_height="166dp">
-
-    </FrameLayout>
 </LinearLayout>
