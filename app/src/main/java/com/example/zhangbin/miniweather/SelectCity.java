@@ -5,10 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -46,6 +51,8 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
     private ImageView mBackBtn;
 
+    private EditText editText;//........
+
     private GoogleApiClient client;
     public String selectedID;
     public String nowCity;
@@ -57,10 +64,9 @@ public class SelectCity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-
         setContentView(R.layout.select_city);
 
-        //setContentView(R.layout.select_city);//发现多余重复的布局设置！！！！！！！！！！！！
+
 
         mBackBtn = (ImageView) findViewById(R.id.title_back);   //后退图案
         mBackBtn.setOnClickListener(this); //点击事件
@@ -80,7 +86,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
             cityID.add(cityid1);
         }
 
-        //
+        //将数据库中的城市显示到列表中，需要利用适配器adapter
         ListView mlistView = (ListView) findViewById(R.id.list_view);
         ArrayAdapter <String> adapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
         mlistView.setAdapter(adapter2);
@@ -100,15 +106,11 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 Log.d("cityid",selectedID);
                 setResult(RESULT_OK,intent);
                 finish();
-
-
-
-
-
-
-
             }
+
         });
+
+//        editText.onEditorAction();
     }
 
        @Override

@@ -176,13 +176,12 @@
 
                 <!-- PM2.5图片 -->
 
-                     <ImageView
-
-                        android:id="@+id/pm2_5_img"
-                        android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5.0dip"
-                         android:src="@drawable/biz_plugin_weather_101_150"/>
+                <ImageView
+                    android:id="@+id/pm2_5_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5.0dip"
+                    android:src="@drawable/biz_plugin_weather_101_150"/>
             </LinearLayout>
             <!-- 污染等级(重度污染) -->
             <TextView

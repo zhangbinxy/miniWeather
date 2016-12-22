@@ -45,6 +45,12 @@ import cn.edu.pku.zhangbin.bean.TodayWeather;
 import cn.edu.pku.zhangbin.bean.pku.ss.zhangbin.Tomorrow1;
 import util.NetUtil;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.location.BDNotifyListener;//假如用到位置提醒功能，需要import该类
+import com.baidu.location.Poi;
 
 public class MainActivity extends Activity implements View.OnClickListener ,ViewPager.OnPageChangeListener {
 
@@ -91,7 +97,9 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         }
     };
 
-
+    //定位功能
+//    public LocationClient mLocationClient = null;
+//    public BDLocationListener myListener = new MyLocationListener();
 
 
 
@@ -127,6 +135,10 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         initView();             //初始化主界面上的布局信息
 
         initDots();//忘记了在这里初始化，所以一直报错：空指针异常。解决之后好开心！！！！！！！
+
+//        initLocation();
+
+//        mLocationClient.start();
     }
 
 
@@ -797,7 +809,7 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         tDay5.setText(strings1[4].getDate());
         tWen5.setText(strings1[4].getLow()+"~"+strings1[4].getHigh());
      //   tType5.setText(strings1[4].getType());
-/*        switch( strings1[4].getType()){                           //这里会产生空指针异常，因为没有数据传过来
+/**        switch( strings1[4].getType()){                           //这里会产生空指针异常，因为没有数据传过来
             case "晴": tType5Img.setImageResource(R.drawable.biz_plugin_weather_qing);
                 break;
             case "暴雪": tType5Img.setImageResource(R.drawable.biz_plugin_weather_baoxue);
@@ -891,4 +903,28 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
+/**    public void onCreate() {
+        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
+        mLocationClient.registerLocationListener( myListener );    //注册监听函数
+    }
+
+    private void initLocation(){
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备//这里比文档中多了一个LocationClientOption的引用
+        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
+        int span=1000;
+        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);//可选，默认false,设置是否使用gps
+        option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
+        mLocationClient.setLocOption(option);
+    }
+**/
 }
