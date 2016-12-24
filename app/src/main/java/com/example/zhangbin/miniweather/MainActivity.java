@@ -111,6 +111,7 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
     Resources resources;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +146,6 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
 
         linearLayout = (LinearLayout) findViewById(R.id.citybackgroundpic);//找到要改变的布局
         resources = getResources();//得到所有图片资源
-
 
 
         initViews(); //初始化六日天气的页面
@@ -183,8 +183,9 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         vp.setOnPageChangeListener(this);
 
 
-    }
 
+    }
+//初始化主界面上的布局
    private void initView() {
 
         city_name_Tv = (TextView) findViewById(R.id.title_city_name);
@@ -216,6 +217,8 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
 
 
        progressBar = (ProgressBar) findViewById(R.id.title_update_progress);
+
+
 
         tDay1 = (TextView) medium1.findViewById(R.id.textViewdate1);
         tDay2 = (TextView) medium1.findViewById(R.id.textViewdate2);
