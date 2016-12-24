@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,8 +21,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
     private static final int UPDATE_TODAY_WEATHER = 1;
 
 
-    private ImageView mUpdateBtn;
+    private ImageView mUpdateBtn,location;
 
     private ImageView mCitySelect;
 
@@ -65,6 +68,7 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
             windTv, windTvOrient, city_name_Tv,tDay1,tDay2,tDay3,tDay4,tDay5,tDay6,tWen1,tWen2,tWen3,tWen4,tWen5,tWen6,tType1,
             tType2,tType3,tType4,tType5,tType6,tFeng1,tFeng2,tFeng3,tFeng4,tFeng5,tFeng6;
     private ImageView weatherImg, pmImg,tType1Img,tType2Img,tType3Img,tType4Img,tType5Img,tType6Img;
+
 
     private View medium1,medium2;//.....................................
     //更新按钮、点击旋转
@@ -98,9 +102,13 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
     };
 
     //定位功能
-//    public LocationClient mLocationClient = null;
-//    public BDLocationListener myListener = new MyLocationListener();
+    public LocationClient mLocationClient = null;
+    public BDLocationListener myListener = new MyLocationListener();
 
+    //change the background picture 随着今日天气变换背景图片
+    LinearLayout linearLayout;
+    Drawable drawable;
+    Resources resources;
 
 
     @Override
@@ -110,6 +118,11 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         //Log.d(TAG, "MainActivity->Oncreate");
         setContentView(R.layout.weather_info);          //把布局设置在主界面上
 
+
+        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
+        mLocationClient.registerLocationListener( myListener );    //注册监听函数
+        location = (ImageView) findViewById(R.id.title_location);//定位功能按钮，设置监听器
+        location.setOnClickListener(this);
 
 
         mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn); //跟新的按钮图片来源
@@ -130,15 +143,19 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         pmImg = (ImageView) findViewById(R.id.pm2_5_img);//这个有什么用？？？？？？？？？？？？？？？？？
         //pmImg.setImageIcon();
 
-        initViews();
+        linearLayout = (LinearLayout) findViewById(R.id.citybackgroundpic);//找到要改变的布局
+        resources = getResources();//得到所有图片资源
 
-        initView();             //初始化主界面上的布局信息
 
-        initDots();//忘记了在这里初始化，所以一直报错：空指针异常。解决之后好开心！！！！！！！
 
-//        initLocation();
+        initViews(); //初始化六日天气的页面
 
-//        mLocationClient.start();
+        initView(); //初始化主界面上的布局信息
+
+        initDots();//忘记了在这里初始化，所以一直报错：空指针异常。解决之后好开心！！！！！！！六日天气滑动页面的圆点
+
+        initLocation();//初始化定位功能
+
     }
 
 
@@ -227,7 +244,6 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         tFeng4 = (TextView) medium2.findViewById(R.id.textViewFeng4);
         tFeng5 = (TextView) medium2.findViewById(R.id.textViewFeng5);
         tFeng6 = (TextView) medium2.findViewById(R.id.textViewFeng6);
-
 
     }
 
@@ -464,6 +480,14 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
                 Toast.makeText(MainActivity.this, "网络挂了！", Toast.LENGTH_LONG).show();
             }
         }
+
+        if (view.getId() == R.id.title_location){//点击定位按钮后，开启定位功能
+            mLocationClient.start();
+            Log.d("Location :","正在定位");
+        }
+
+        mLocationClient.stop();
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//从激活的SelectCity活动接收返回数据
@@ -528,45 +552,85 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
 
         //更新今日天气适配图片
         switch (todayWeather.getType()){
-            case "晴": weatherImg.setImageResource(R.drawable.biz_plugin_weather_qing);
+            case "晴": weatherImg.setImageResource(R.drawable.biz_plugin_weather_qing);//更改显示在屏幕上部的今日天气图片
+                drawable = resources.getDrawable(R.drawable.biz_qingtian);//获取与当天天气情况对应的图片
+                linearLayout.setBackgroundDrawable(drawable);//显示到背景
                 break;
             case "暴雪": weatherImg.setImageResource(R.drawable.biz_plugin_weather_baoxue);
+                drawable = resources.getDrawable(R.drawable.biz_baoxue);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "暴雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_baoyu);
+                drawable = resources.getDrawable(R.drawable.biz_baoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "大暴雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_dabaoyu);
+                drawable = resources.getDrawable(R.drawable.biz_baoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "大雪": weatherImg.setImageResource(R.drawable.biz_plugin_weather_daxue);
+                drawable = resources.getDrawable(R.drawable.biz_baoxue);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "大雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_dayu);
+                drawable = resources.getDrawable(R.drawable.biz_baoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "多云": weatherImg.setImageResource(R.drawable.biz_plugin_weather_duoyun);
+                drawable = resources.getDrawable(R.drawable.biz_duoyun);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "雷阵雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_leizhenyu);
+                drawable = resources.getDrawable(R.drawable.biz_leizhenyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "雷阵雨冰雹": weatherImg.setImageResource(R.drawable.biz_plugin_weather_leizhenyubingbao);
+                drawable = resources.getDrawable(R.drawable.biz_bingbao);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "沙尘暴": weatherImg.setImageResource(R.drawable.biz_plugin_weather_shachenbao);
+                drawable = resources.getDrawable(R.drawable.biz_shachenbao);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "特大暴雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_tedabaoyu);
+                drawable = resources.getDrawable(R.drawable.biz_baoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "雾": weatherImg.setImageResource(R.drawable.biz_plugin_weather_wu);
+                drawable = resources.getDrawable(R.drawable.biz_wu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "小雪": weatherImg.setImageResource(R.drawable.biz_plugin_weather_xiaoxue);
+                drawable = resources.getDrawable(R.drawable.biz_xiaoxue);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "小雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_xiaoyu);
+                drawable = resources.getDrawable(R.drawable.biz_xiaoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "阴": weatherImg.setImageResource(R.drawable.biz_plugin_weather_yin);
+                drawable = resources.getDrawable(R.drawable.biz_yintian);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "雨加雪": weatherImg.setImageResource(R.drawable.biz_plugin_weather_yujiaxue);
+                drawable = resources.getDrawable(R.drawable.biz_xiaoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "阵雪": weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhenxue);
+                drawable = resources.getDrawable(R.drawable.biz_xue);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "阵雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhenyu);
+                drawable = resources.getDrawable(R.drawable.biz_xiaoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "中雪": weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhongxue);
+                drawable = resources.getDrawable(R.drawable.biz_zhongxue);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
             case "中雨": weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhongyu);
+                drawable = resources.getDrawable(R.drawable.biz_baoyu);
+                linearLayout.setBackgroundDrawable(drawable);
                 break;
 
 
@@ -752,6 +816,7 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
 
         tDay4.setText(strings1[3].getDate());
         tWen4.setText(strings1[3].getLow()+"~"+strings1[3].getHigh());
+//        tType4.setImageResource(R);
         switch( strings1[3].getType()){             //更新第四日天气图片
             case "晴": tType4Img.setImageResource(R.drawable.biz_plugin_weather_qing);
                 break;
@@ -802,14 +867,12 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
             }
                 break;
         };
-
-       // tType4.setImageResource(R);
         tFeng4.setText(strings1[3].getFengli()+" "+strings1[3].getFengxiang());
 
-        tDay5.setText(strings1[4].getDate());
+/**        tDay5.setText(strings1[4].getDate());
         tWen5.setText(strings1[4].getLow()+"~"+strings1[4].getHigh());
-     //   tType5.setText(strings1[4].getType());
-/**        switch( strings1[4].getType()){                           //这里会产生空指针异常，因为没有数据传过来
+        tType5.setText(strings1[4].getType());
+        switch( strings1[4].getType()){                           //这里会产生空指针异常，因为没有数据传过来
             case "晴": tType5Img.setImageResource(R.drawable.biz_plugin_weather_qing);
                 break;
             case "暴雪": tType5Img.setImageResource(R.drawable.biz_plugin_weather_baoxue);
@@ -859,28 +922,29 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
             }
                 break;
         };
-        */
+
         tFeng5.setText(strings1[4].getFengli()+" "+strings1[4].getFengxiang());
 
 
 
-/*        try{
+       try{
             Thread.sleep(1000);
         }catch (Exception e){
             e.printStackTrace();
         }
         */
+
+        //更新按钮在数据更新后恢复正常
         progressBar.setVisibility(View.GONE);
         mUpdateBtn.setVisibility(View.VISIBLE);
 
-            Toast.makeText(MainActivity.this, "更新成功!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "更新成功!", Toast.LENGTH_SHORT).show();
 
 
 
     }
 
     //重写OnPageChangeListener方法
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -904,12 +968,7 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
 
     }
 
-
-/**    public void onCreate() {
-        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerLocationListener( myListener );    //注册监听函数
-    }
-
+//定位的初始化方法
     private void initLocation(){
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备//这里比文档中多了一个LocationClientOption的引用
@@ -926,5 +985,5 @@ public class MainActivity extends Activity implements View.OnClickListener ,View
         option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
         mLocationClient.setLocOption(option);
     }
-**/
+
 }

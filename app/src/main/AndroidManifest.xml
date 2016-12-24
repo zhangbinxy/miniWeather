@@ -28,19 +28,18 @@
     <application
         android:name="cn.edu.pku.zhangbin.bean.pku.ss.zhangbin.app.MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-       <!-- <service android:name="com.baidu.location.f"
+        <service android:name="com.baidu.location.f"
                  android:enabled="true"
                  android:process=":remote">
         </service>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="58aPkRC7QHS9IqtNWODG2w1OO5xD450p" />  -->     //key:开发者申请的Key
+            android:value="58aPkRC7QHS9IqtNWODG2w1OO5xD450p" /> //key:开发者申请的Key
 
 
         <activity android:name=".MainActivity">

@@ -9,7 +9,7 @@
         android:layout_height="fill_parent">
 
         <TextView
-            android:text="我是一页广告"
+            android:text="我只是一页广告"
             android:textSize="50dip"
             android:textColor="@color/colorPrimaryDark"
             android:layout_width="match_parent"

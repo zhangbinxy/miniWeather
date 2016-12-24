@@ -24,7 +24,9 @@
             android:layout_height="45.0dip"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/base_action_bar_back_normal"/>
+            android:src="@drawable/base_action_bar_back_normal"
+            android:background="@drawable/button_selector"/>
+
         <ImageView
             android:layout_width="1.0dip"
             android:layout_height="40dip"

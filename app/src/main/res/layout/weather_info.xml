@@ -13,7 +13,8 @@
             android:id="@+id/title_city_manager"
             android:layout_width="45.0dip"
             android:layout_height="45.0dip"
-            android:src="@drawable/title_city" />
+            android:src="@drawable/title_city"
+            android:background="@drawable/button_selector"/>//...........................test the button shape color
 
         <ImageView
             android:id="@+id/city_seperator"
@@ -21,13 +22,14 @@
             android:layout_height="40dip"
             android:layout_marginTop="2.0dip"
             android:layout_toRightOf="@+id/title_city_manager"
-            android:background="#3a7980" />
+            android:background="#5959ab"/>
 
         <TextView
             android:id="@+id/title_city_name"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_toRightOf="@id/city_seperator"
+            android:layout_marginLeft="70dip"
             android:gravity="center_vertical"
             android:text="北京天气"
             android:textColor="#ffffffff"
@@ -39,10 +41,11 @@
             android:layout_height="45.0dip"
             android:layout_alignParentRight="true"
             android:layout_gravity="center"
-            android:src="@drawable/title_update"/>
+            android:src="@drawable/title_update"
+            android:background="@drawable/button_selector"/>
 
 
-        //更新按钮布局，要添加新布局使其旋转。
+        //更新按钮布局，要添加新布局使点击更新按钮后出现圆形旋转图标，以便告诉用户数据正在获取更新
          <ProgressBar
              android:id="@+id/title_update_progress"
              android:layout_alignParentRight="true"
@@ -58,7 +61,8 @@
             android:layout_width="45.0dip"
             android:layout_height="45.0dip"
             android:layout_toLeftOf="@id/title_update_btn"
-            android:src="@drawable/title_share" />
+            android:src="@drawable/title_share"
+            android:background="@drawable/button_selector"/>
 
         <ImageView
             android:id="@+id/title_location"
@@ -66,11 +70,13 @@
             android:layout_height="45.0dip"
             android:layout_toLeftOf="@id/title_share"
             android:src="@drawable/base_action_bar_action_city"
-            />
+            android:background="@drawable/button_selector"/>
 
     </RelativeLayout>
 
+    <!--城市背景图片-->...............................................................................
     <LinearLayout
+        android:id="@+id/citybackgroundpic"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/title"
