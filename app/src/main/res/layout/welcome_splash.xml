@@ -3,5 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/splashPic"
-    android:background="@drawable/biz_xiaoyu">
+    android:background="@drawable/biz_xiaoyu">//图片是静态的，如若能够变成动态的就更好了
 </RelativeLayout>

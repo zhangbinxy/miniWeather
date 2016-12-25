@@ -32,6 +32,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <service android:name="com.baidu.location.f"
                  android:enabled="true"
                  android:process=":remote">
@@ -41,8 +42,7 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="58aPkRC7QHS9IqtNWODG2w1OO5xD450p" /> //key:开发者申请的Key
 
-        <activity android:name=".WelcomeActivity">
-
+        <activity android:name=".WelcomeActivity">// 设置进入app后的界面
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,7 +57,7 @@
 
         </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        
+
         
         <meta-data
             android:name="com.google.android.gms.version"

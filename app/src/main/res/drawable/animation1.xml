@@ -9,6 +9,4 @@
     <item android:drawable="@drawable/xiayudt6" android:duration="150"></item>
     <item android:drawable="@drawable/xiayudt7" android:duration="150"></item>
     <item android:drawable="@drawable/xiayudt8" android:duration="150"></item>
-
-
 </animation-list>

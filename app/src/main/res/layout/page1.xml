@@ -23,21 +23,27 @@
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewdate1"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <TextView
                 android:text="date"
                 android:layout_width="125dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewdate2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <TextView
                 android:text="date"
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewdate3"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
         </TableRow>
 
@@ -54,21 +60,27 @@
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewTemp1"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <TextView
                 android:text="wendu"
                 android:layout_width="125dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewTemp2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <TextView
                 android:text="wendu"
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewTemp3"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
         </TableRow>
 
         <TableRow
@@ -113,21 +125,27 @@
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewFeng1"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <TextView
                 android:text="fengli"
                 android:layout_width="125dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewFeng2"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
 
             <TextView
                 android:text="fengli"
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewFeng3"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:textColor="#000000"
+                android:textSize="20sp"/>
         </TableRow>
 
     </RelativeLayout>

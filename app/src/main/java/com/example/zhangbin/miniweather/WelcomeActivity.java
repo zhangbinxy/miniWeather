@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 /**
  * Created by zhangbin on 2016/12/25.
+ * 用来显示进入app后的闪屏功能
  */
 
 public class WelcomeActivity extends Activity {
@@ -27,7 +28,7 @@ public class WelcomeActivity extends Activity {
         setContentView(R.layout.welcome_splash);
         welcomePic =  findViewById(R.id.splashPic);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f,1.0f);
-        alphaAnimation.setDuration(3000);
+        alphaAnimation.setDuration(5000);
         welcomePic.startAnimation(alphaAnimation);
         handler.postDelayed(new Runnable() {
             @Override
@@ -37,6 +38,6 @@ public class WelcomeActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-        },3000);
+        },5000);
     }
 }

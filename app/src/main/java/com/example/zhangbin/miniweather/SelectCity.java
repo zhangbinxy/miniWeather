@@ -63,7 +63,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
     private EditText editText;//接收输入城市搜索的字符
 
-    int pyindex2;
+//    int pyindex2;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -173,9 +173,9 @@ public class SelectCity extends Activity implements View.OnClickListener {
                case R.id.title_back:
                    if (selectedID == null) {
                        SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
-                       selectedID = sp.getString("cityCode", "101010100");
+                       selectedID = sp.getString("cityCode", "101010100");//如果点击返回按钮，则硬性规定返回北京的天气
                    }
-                   i.putExtra("cityCode", selectedID);//如果点击返回按钮，则硬性规定返回北京的天气
+                   i.putExtra("cityCode", selectedID);
                    setResult(RESULT_OK, i);
                    finish();
                    break;

@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="45.0dip"
-        android:background="#5959ab">
+        android:background="#528B8B">
 
          <TextView
             android:id="@+id/title_city_name"
@@ -15,7 +15,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:text="当前城市 ：北京"
-            android:textColor="#ffffffff"
+            android:textColor="#BC8F8F"
             android:textSize="20.0dip"/>
 
         <ImageView
@@ -33,7 +33,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:background="#A71717"
-            android:gravity="center" />
+            android:gravity="center" />//这是做什么用的呢？
 
     </RelativeLayout>
 

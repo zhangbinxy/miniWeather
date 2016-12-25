@@ -6,15 +6,15 @@
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="45.0dip"
-        android:background="#5959ab"
-        android:gravity="center_vertical" >
+        android:background="#528B8B"
+        android:gravity="center_vertical" >//上一行去掉了颜色设置   android:background="#000000"
 
         <ImageView
             android:id="@+id/title_city_manager"
             android:layout_width="45.0dip"
             android:layout_height="45.0dip"
             android:src="@drawable/title_city"
-            android:background="@drawable/button_selector"/>//...........................test the button shape color
+            android:background="@drawable/button_selector"/>//test the button shape color,成功！！！
 
         <ImageView
             android:id="@+id/city_seperator"
@@ -22,7 +22,7 @@
             android:layout_height="40dip"
             android:layout_marginTop="2.0dip"
             android:layout_toRightOf="@+id/title_city_manager"
-            android:background="#5959ab"/>
+            />
 
         <TextView
             android:id="@+id/title_city_name"
@@ -32,7 +32,7 @@
             android:layout_marginLeft="70dip"
             android:gravity="center_vertical"
             android:text="北京天气"
-            android:textColor="#ffffffff"
+            android:textColor="#BC8F8F"
             android:textSize="22.0sp" />
 
         <ImageView
@@ -98,7 +98,7 @@
                 android:layout_marginLeft="15.0dip"
                 android:singleLine="true"
                 android:text="北京"
-                android:textColor="@android:color/white"
+                android:textColor="#BC8F8F"
                 android:textSize="40.0sp"/>
             <!-- 发布时间 -->
         <TextView
@@ -111,7 +111,7 @@
             android:layout_marginTop="5dip"
             android:singleLine="true"
             android:text="今天18:25发布"
-            android:textColor="@android:color/white"
+            android:textColor="#528B8B"
             android:textSize="15.0sp" />
         <!-- 现在温度 -->
          <TextView
@@ -122,7 +122,7 @@
              android:layout_below="@id/time"
              android:layout_marginLeft="15dp"
              android:text="当前温度20度"
-             android:textColor="@android:color/white"
+             android:textColor="#528B8B"
              android:textSize="15sp" />
         <!-- 湿度信息 -->
         <TextView
@@ -133,7 +133,7 @@
             android:layout_marginLeft="15.0dip"
             android:singleLine="true"
             android:text="湿度:57%"
-            android:textColor="@android:color/white"
+            android:textColor="#528B8B"
             android:textSize="15.0sp"
             android:layout_below="@+id/temperatureNow" />
 
@@ -167,8 +167,8 @@
                         android:singleLine="true"
                         android:text="PM2.5"
                         android:layout_marginRight="50dip"
-                        android:textColor="@android:color/white"
-                        android:textSize="16.0sp" />
+                        android:textColor="#C67171"
+                        android:textSize="18.0sp" />
                     <!-- PM2.5数值 -->
                     <TextView
                         android:id="@+id/pm_data"
@@ -176,7 +176,7 @@
                         android:layout_height="78dp"
                         android:singleLine="true"
                         android:text="220"
-                        android:textColor="@android:color/white"
+                        android:textColor="#528B8B"
                         android:textSize="30.0sp" />
                 </LinearLayout>
 
@@ -197,7 +197,7 @@
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="重度污染"
-                android:textColor="@android:color/white"
+                android:textColor="#528B8B"
                 android:textSize="40.0dip" />
         </LinearLayout>
         <!-- 今日天气信息块 -->
@@ -226,7 +226,7 @@
                     android:layout_toRightOf="@+id/weather_img"
                     android:singleLine="true"
                     android:text="今天 星期二"
-                    android:textColor="@android:color/white"
+                    android:textColor="#528B8B"
                     android:textSize="20sp" />
                 <!-- 温度范围 -->
                 <TextView
@@ -238,7 +238,7 @@
                     android:layout_toRightOf="@+id/weather_img"
                     android:singleLine="true"
                     android:text="17℃~28℃"
-                    android:textColor="@android:color/white"
+                    android:textColor="#528B8B"
                     android:textSize="20.0sp" />
                 <!-- 天气状况 -->
                 <TextView
@@ -250,7 +250,7 @@
                     android:layout_toRightOf="@id/weather_img"
                     android:singleLine="true"
                     android:text="BIG SUN"
-                    android:textColor="@android:color/white"
+                    android:textColor="#528B8B"
                     android:textSize="20.0sp" />
                 <!-- 风力信息 -->
 
@@ -263,7 +263,7 @@
                     android:layout_toRightOf="@id/weather_img"
                     android:singleLine="true"
                     android:text="微风"
-                    android:textColor="@android:color/white"
+                    android:textColor="#528B8B"
                     android:textSize="20.0sp" />
 
                 <!-- 风向信息 -->
@@ -275,7 +275,7 @@
                     android:layout_toRightOf="@id/weather_img"
                     android:layout_marginLeft="5dip"
                     android:text="风向"
-                    android:textColor="@android:color/white"
+                    android:textColor="#528B8B"
                     android:textSize="20.0sp"/>
 
             </RelativeLayout>
