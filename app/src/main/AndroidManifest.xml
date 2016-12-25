@@ -41,12 +41,16 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="58aPkRC7QHS9IqtNWODG2w1OO5xD450p" /> //key:开发者申请的Key
 
+        <activity android:name=".WelcomeActivity">
 
-        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".MainActivity">
+
         </activity>
 
         <activity android:name=".SelectCity">
