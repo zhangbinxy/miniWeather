@@ -8,9 +8,9 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         <TextView
-            android:text="谢谢使用！"
+            android:text="Happy New Year！"
             android:textSize="50dip"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#CD0000"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/textView"
