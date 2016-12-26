@@ -2,6 +2,7 @@ package com.example.zhangbin.miniweather;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -169,6 +170,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         getWeatherDetail();
 
 
+
     }
 
     void getWeatherDetail() {//封装了请求地理位置信息的过程
@@ -191,6 +193,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         for (String string : cityName) {//从城市名称中找到定位城市，取得下标
                             if (string.equals(strLastLoc)) {
                                 indexofLocationCityname = cityName.indexOf(strLastLoc);
+                                SharedPreferences sharedPreferences = getSharedPreferences("LC",MODE_PRIVATE);//传递当前定位城市ID给城市列表的空选择（直接点击返回按钮的情况）
+                                sharedPreferences.edit().putString("LocatedCity",cityNumber.get(indexofLocationCityname)).commit();
                                 break;
                             }
                         }
@@ -565,6 +569,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         city_name_Tv.setText(todayWeather.getCity() + "天气");
         cityTv.setText(todayWeather.getCity());
+        SharedPreferences sharedPreferences = getSharedPreferences("UPCT",MODE_PRIVATE);//传递给城市列表上方城市名称，保持每次进入列表界面时都与主界面城市名字一致
+        sharedPreferences.edit().putString("updateCityName",todayWeather.getCity()).commit();
         timeTv.setText(todayWeather.getUpdatetime() + "发布");
         temperatureTvNow.setText("当前温度" + todayWeather.getWendu() + "摄氏度");
         humidityTv.setText("湿度:" + todayWeather.getShidu());

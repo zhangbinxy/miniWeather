@@ -70,6 +70,10 @@ public class SelectCity extends Activity implements View.OnClickListener {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.select_city);//设置布局
 
+        currentCity = (TextView) findViewById(R.id.title_city_name);//进入城市列表界面时，上方城市名称显示为主界面城市
+        SharedPreferences sharedPreferences = getSharedPreferences("UPCT",MODE_PRIVATE);
+        //updateCityName从MainActivity
+        currentCity.setText("当前城市："+sharedPreferences.getString("updateCityName","Mini Weather"));
 
         mBackBtn = (ImageView) findViewById(R.id.title_back);   //后退图案
         mBackBtn.setOnClickListener(this); //为后退按钮设置点击事件监听器
@@ -107,10 +111,10 @@ public class SelectCity extends Activity implements View.OnClickListener {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {//设置list view的点击监听
                 Toast.makeText(SelectCity.this, "您选择的城市是:" + data.get(i), Toast.LENGTH_SHORT).show();
                 selectedID = cityID2.get(i);
-                Log.d("it's my test",i+"");
+////                Log.d("it's my test",i+"");
 //                nowCity = data.get(i);
-//                Log.d("it's my test",data.get(i));
-
+////                Log.d("it's my test",data.get(i));
+//
 //                currentCity = (TextView) findViewById(R.id.title_city_name);//更新城市列表上方城市名称
 //                currentCity.setText("当前城市:" + nowCity);//在bar上显示更新后的城市名称
 
@@ -142,21 +146,27 @@ public class SelectCity extends Activity implements View.OnClickListener {
                 data.clear();
                 cityID2.clear();
                 int pyindex=0;
+                int pyindexCh=0;
+                Pattern p_str = Pattern.compile("[\\u4e00-\\u9fa5]+");//正则表达式用来判断输入的是否是汉字
                 //汉字搜索
-//                for (String str:data2){
-//                    if (str.indexOf(editText.getText().toString())!=-1){
-//                        data.add(str);
-//                        cityID2.add(cityID.get(pyindex));
-//                    }
-//                    pyindex++;
-//                }
-                //拼音搜索
-                for (String str1:cityPY){
-                    if (str1.indexOf(editText.getText().toString())!=-1){
-                        data.add(data2.get(pyindex));
-                        cityID2.add(cityID.get(pyindex));
+                if (s.equals(p_str)) {
+                    for (String str : data2) {
+                        if (str.indexOf(editText.getText().toString()) != -1) {
+                            data.add(str);
+                            cityID2.add(cityID.get(pyindexCh));
+                        }
+                        pyindexCh++;
                     }
-                    pyindex++;
+                }
+                //拼音搜索
+                else {
+                    for (String str1 : cityPY) {
+                        if (str1.indexOf(editText.getText().toString()) != -1) {
+                            data.add(data2.get(pyindex));
+                            cityID2.add(cityID.get(pyindex));
+                        }
+                        pyindex++;
+                    }
                 }
                 adapter1.notifyDataSetChanged();
             }
@@ -167,15 +177,15 @@ public class SelectCity extends Activity implements View.OnClickListener {
 
 
        @Override
-       public void onClick(View v) {        //对于选择城市时有无操作进行区分
+       public void onClick(View v) {//对于选择城市时有无操作进行区分
            Intent i = new Intent();
            switch (v.getId()) {
                case R.id.title_back:
                    if (selectedID == null) {
-                       SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
-                       selectedID = sp.getString("cityCode", "101010100");//如果点击返回按钮，则硬性规定返回北京的天气
+                       SharedPreferences sharedPreferences = getSharedPreferences("LC",MODE_PRIVATE);//这个sharepreference用于传递定位城市ID
+                       selectedID = sharedPreferences.getString("originCityCode","101010100");//如果点击返回按钮，则返回定位城市
                    }
-                   i.putExtra("cityCode", selectedID);
+                   i.putExtra("cityCode",selectedID );
                    setResult(RESULT_OK, i);
                    finish();
                    break;

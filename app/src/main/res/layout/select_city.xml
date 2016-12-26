@@ -14,9 +14,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:text="当前城市 ：北京"
+            android:text="迷你天气"
             android:textColor="#BC8F8F"
-            android:textSize="20.0dip"/>
+            android:textSize="30.0dip"/>
 
         <ImageView
             android:id="@+id/title_back"
