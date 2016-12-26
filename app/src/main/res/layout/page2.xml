@@ -32,7 +32,7 @@
                 android:textSize="20sp"/>
 
             <TextView
-                android:text="美好的一天"
+                android:text="美好的又一天"
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewdate6"
@@ -67,7 +67,7 @@
                 android:textSize="20sp"/>
 
             <TextView
-                android:text="温暖"
+                android:text="惬意"
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewTemp6"
@@ -130,7 +130,7 @@
                 android:textSize="20sp"/>
 
             <TextView
-                android:text="微风"
+                android:text="无风"
                 android:layout_width="130dip"
                 android:layout_height="match_parent"
                 android:id="@+id/textViewFeng6"

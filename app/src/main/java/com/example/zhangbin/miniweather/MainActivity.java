@@ -61,7 +61,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     private ImageView weatherImg, pmImg, tType1Img, tType2Img, tType3Img, tType4Img, tType5Img, tType6Img;
 
 
-    private View medium1, medium2;//.....................................
+    private View medium1, medium2;//.....................................这样才能设置滑动界面
     //更新按钮、点击旋转
     private ProgressBar progressBar;
 
@@ -171,30 +171,30 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     }
 
-    void getWeatherDetail() {
+    void getWeatherDetail() {//封装了请求地理位置信息的过程
         new Thread(new Runnable() {
             @Override
             public void run() {
                 int i = 0;
-                String strLastLoc = "";
+                String strLastLoc = "";//存放最新的地址
                 while (i < 3) {
-                    while (mLocationClient.getLastKnownLocation() == null) {
+                    while (mLocationClient.getLastKnownLocation() == null) {//若果第一次启动app，地址信息可能为空，等待0.1秒
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
                         }
                     }
-                    refreshWeatherDetail();
-                    BDLocation lastLoc = mLocationClient.getLastKnownLocation();
-                    if (strLastLoc != lastLoc.getCity()) {
+                    refreshWeatherDetail();//
+                    BDLocation lastLoc = mLocationClient.getLastKnownLocation();//存放上次得到的地址，以免每次请求消耗资源
+                    if (strLastLoc != lastLoc.getCity()) {//如果新地址与之前地址不相同，就更新天气信息
                         strLastLoc = lastLoc.getCity();
-                        for (String string : cityName) {
+                        for (String string : cityName) {//从城市名称中找到定位城市，取得下标
                             if (string.equals(strLastLoc)) {
                                 indexofLocationCityname = cityName.indexOf(strLastLoc);
                                 break;
                             }
                         }
-                        queryWeatherCode(cityNumber.get(indexofLocationCityname));
+                        queryWeatherCode(cityNumber.get(indexofLocationCityname));//从城市代码里找到城市的ID，然后传到查询天气方法中
 
 
                     }
@@ -214,7 +214,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             queryWeatherCode(cityNumber.get(indexofLocationCityname));
     }
 
-    void initDots() {
+    void initDots() {//圆点初始状态
         dots = new ImageView[views.size()];
         for (int j = 0; j < views.size(); j++) {
             dots[j] = (ImageView) findViewById(ids[j]);
@@ -222,7 +222,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     }
 
 
-    private void initViews() {
+    private void initViews() {//六日天气界面初始状态
         LayoutInflater inflater = LayoutInflater.from(this);
         views = new ArrayList<View>();
         medium1 = inflater.inflate(R.layout.page1, null);
@@ -448,7 +448,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     /**
      * @param cityCode
      */
-    private void queryWeatherCode(String cityCode) {
+    private void queryWeatherCode(String cityCode) {//通过城市ID请求天气数据
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + cityCode;
         Log.d("myWeather", address);
         new Thread(new Runnable() {
@@ -497,7 +497,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     @Override
     public void onClick(View view) { //重写
 
-String code="";
+//        String code="";
         if (view.getId() == R.id.title_city_manager) {
             Intent i= new Intent(this, SelectCity.class);
             //startActivity(i);
@@ -507,11 +507,11 @@ String code="";
         if (view.getId() == R.id.title_update_btn) {
 
 
-            //mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn);
+//            mUpdateBtn = (ImageView) findViewById(R.id.title_update_btn);
             progressBar.setVisibility(View.VISIBLE);
             mUpdateBtn.setVisibility(View.INVISIBLE);
 
-          // Log.d("myWeather", cityCode);
+//           Log.d("myWeather", cityCode);
 
 
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {    //网络状况检查
@@ -807,17 +807,17 @@ String code="";
                 weatherImg.setImageResource(R.drawable.biz_plugin_weather_xiaoxue);
                 drawable = resources.getDrawable(R.drawable.biz_xiaoxue);
                 linearLayout.setBackgroundDrawable(drawable);
-                city_name_Tv.setTextColor(Color.rgb(0,0,511));
-                cityTv.setTextColor(Color.rgb(0,0,511));
-                timeTv.setTextColor(Color.rgb(0,0,511));
-                humidityTv.setTextColor(Color.rgb(0,0,511));
-                pmDataTv.setTextColor(Color.rgb(0,0,511));
-                weekTv.setTextColor(Color.rgb(0,0,511));
-                temperatureTv.setTextColor(Color.rgb(0,0,511));
-                temperatureTvNow.setTextColor(Color.rgb(0,0,511));
-                climateTv.setTextColor(Color.rgb(0,0,511));
-                windTv.setTextColor(Color.rgb(0,0,511));
-                windTvOrient.setTextColor(Color.rgb(0,0,511));
+                city_name_Tv.setTextColor(Color.rgb(0,102,102));
+                cityTv.setTextColor(Color.rgb(0,102,102));
+                timeTv.setTextColor(Color.rgb(0,102,102));
+                humidityTv.setTextColor(Color.rgb(0,102,102));
+                pmDataTv.setTextColor(Color.rgb(0,102,102));
+                weekTv.setTextColor(Color.rgb(0,102,102));
+                temperatureTv.setTextColor(Color.rgb(0,102,102));
+                temperatureTvNow.setTextColor(Color.rgb(0,102,102));
+                climateTv.setTextColor(Color.rgb(0,102,102));
+                windTv.setTextColor(Color.rgb(0,102,102));
+                windTvOrient.setTextColor(Color.rgb(0,102,102));
                 break;
             case "小雨":
                 weatherImg.setImageResource(R.drawable.biz_plugin_weather_xiaoyu);
@@ -860,17 +860,17 @@ String code="";
                 weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhenxue);
                 drawable = resources.getDrawable(R.drawable.biz_xue);
                 linearLayout.setBackgroundDrawable(drawable);
-                city_name_Tv.setTextColor(Color.rgb(0,0,511));
-                cityTv.setTextColor(Color.rgb(0,0,511));
-                timeTv.setTextColor(Color.rgb(0,0,511));
-                humidityTv.setTextColor(Color.rgb(0,0,511));
-                pmDataTv.setTextColor(Color.rgb(0,0,511));
-                weekTv.setTextColor(Color.rgb(0,0,511));
-                temperatureTv.setTextColor(Color.rgb(0,0,511));
-                temperatureTvNow.setTextColor(Color.rgb(0,0,511));
-                climateTv.setTextColor(Color.rgb(0,0,511));
-                windTv.setTextColor(Color.rgb(0,0,511));
-                windTvOrient.setTextColor(Color.rgb(0,0,511));
+                city_name_Tv.setTextColor(Color.rgb(0,102,102));
+                cityTv.setTextColor(Color.rgb(0,102,102));
+                timeTv.setTextColor(Color.rgb(0,102,102));
+                humidityTv.setTextColor(Color.rgb(0,102,102));
+                pmDataTv.setTextColor(Color.rgb(0,102,102));
+                weekTv.setTextColor(Color.rgb(0,102,102));
+                temperatureTv.setTextColor(Color.rgb(0,102,102));
+                temperatureTvNow.setTextColor(Color.rgb(0,102,102));
+                climateTv.setTextColor(Color.rgb(0,102,102));
+                windTv.setTextColor(Color.rgb(0,102,102));
+                windTvOrient.setTextColor(Color.rgb(0,102,102));
                 break;
             case "阵雨":
                 weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhenyu);
@@ -881,17 +881,17 @@ String code="";
                 weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhongxue);
                 drawable = resources.getDrawable(R.drawable.biz_zhongxue);
                 linearLayout.setBackgroundDrawable(drawable);
-                city_name_Tv.setTextColor(Color.rgb(0,0,511));
-                cityTv.setTextColor(Color.rgb(0,0,511));
-                timeTv.setTextColor(Color.rgb(0,0,511));
-                humidityTv.setTextColor(Color.rgb(0,0,511));
-                pmDataTv.setTextColor(Color.rgb(0,0,511));
-                weekTv.setTextColor(Color.rgb(0,0,511));
-                temperatureTv.setTextColor(Color.rgb(0,0,511));
-                temperatureTvNow.setTextColor(Color.rgb(0,0,511));
-                climateTv.setTextColor(Color.rgb(0,0,511));
-                windTv.setTextColor(Color.rgb(0,0,511));
-                windTvOrient.setTextColor(Color.rgb(0,0,511));
+                city_name_Tv.setTextColor(Color.rgb(0,102,102));
+                cityTv.setTextColor(Color.rgb(0,102,102));
+                timeTv.setTextColor(Color.rgb(0,102,102));
+                humidityTv.setTextColor(Color.rgb(0,102,102));
+                pmDataTv.setTextColor(Color.rgb(0,102,102));
+                weekTv.setTextColor(Color.rgb(0,102,102));
+                temperatureTv.setTextColor(Color.rgb(0,102,102));
+                temperatureTvNow.setTextColor(Color.rgb(0,102,102));
+                climateTv.setTextColor(Color.rgb(0,102,102));
+                windTv.setTextColor(Color.rgb(0,102,102));
+                windTvOrient.setTextColor(Color.rgb(0,102,102));
                 break;
             case "中雨":
                 weatherImg.setImageResource(R.drawable.biz_plugin_weather_zhongyu);
