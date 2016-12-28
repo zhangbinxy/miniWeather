@@ -17,12 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-/**    sourceSets {
+    sourceSets {
         main {
             jniLibs.srcDirs = ['libs']
         }
     }
- **/
+
 }
 
 dependencies {
@@ -36,3 +36,5 @@ dependencies {
 
     compile 'com.umeng.analytics:analytics:latest.integration'
 }
+
+

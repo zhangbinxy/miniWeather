@@ -16,6 +16,7 @@ public class MyLocationListener implements BDLocationListener {
 
     @Override
     public void onReceiveLocation(BDLocation location) {
+
         //Receive Location
         StringBuffer sb = new StringBuffer(256);
         sb.append("time : ");
