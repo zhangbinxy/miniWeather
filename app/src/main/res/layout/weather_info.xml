@@ -97,7 +97,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="15.0dip"
                 android:singleLine="true"
-                android:text="北京"
+                android:text="迷你天气"
                 android:textColor="#BC8F8F"
                 android:textSize="40.0sp"/>
             <!-- 发布时间 -->

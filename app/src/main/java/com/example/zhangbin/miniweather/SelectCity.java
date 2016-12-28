@@ -183,7 +183,7 @@ public class SelectCity extends Activity implements View.OnClickListener {
                case R.id.title_back:
                    if (selectedID == null) {
                        SharedPreferences sharedPreferences = getSharedPreferences("LC",MODE_PRIVATE);//这个sharepreference用于传递定位城市ID
-                       selectedID = sharedPreferences.getString("originCityCode","101010100");//如果点击返回按钮，则返回定位城市
+                       selectedID = sharedPreferences.getString("LocatedCity","101180101");//如果点击返回按钮，则返回定位城市
                    }
                    i.putExtra("cityCode",selectedID );
                    setResult(RESULT_OK, i);

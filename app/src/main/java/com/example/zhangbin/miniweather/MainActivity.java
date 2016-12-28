@@ -187,17 +187,19 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         }
                     }
                     refreshWeatherDetail();//
-                    BDLocation lastLoc = mLocationClient.getLastKnownLocation();//存放上次得到的地址，以免每次请求消耗资源
+                    BDLocation lastLoc = mLocationClient.getLastKnownLocation();//存放定位得到的地址，以免每次请求消耗资源
                     if (strLastLoc != lastLoc.getCity()) {//如果新地址与之前地址不相同，就更新天气信息
                         strLastLoc = lastLoc.getCity();
                         for (String string : cityName) {//从城市名称中找到定位城市，取得下标
                             if (string.equals(strLastLoc)) {
                                 indexofLocationCityname = cityName.indexOf(strLastLoc);
-                                SharedPreferences sharedPreferences = getSharedPreferences("LC",MODE_PRIVATE);//传递当前定位城市ID给城市列表的空选择（直接点击返回按钮的情况）
-                                sharedPreferences.edit().putString("LocatedCity",cityNumber.get(indexofLocationCityname)).commit();
+                                Log.d("LocatedCity ",cityNumber.get(indexofLocationCityname)+"");
                                 break;
                             }
                         }
+                        Log.d("LocatedCity ",cityNumber.get(indexofLocationCityname)+"");
+                        SharedPreferences sharedPreferences = getSharedPreferences("LC",MODE_PRIVATE);//传递当前定位城市ID给城市列表的空选择（直接点击返回按钮的情况）
+                        sharedPreferences.edit().putString("LocatedCity",cityNumber.get(indexofLocationCityname)).commit();
                         queryWeatherCode(cityNumber.get(indexofLocationCityname));//从城市代码里找到城市的ID，然后传到查询天气方法中
 
 
@@ -537,7 +539,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         if (view.getId() == R.id.title_location) {//点击定位按钮后，开启定位功能
             getWeatherDetail();
-            Log.d("Location :", "正在定位 ");
+//            Log.d("Location :", "正在定位 ");
 
         }
 
