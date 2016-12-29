@@ -168,7 +168,7 @@
                         android:text="PM2.5"
                         android:layout_marginRight="50dip"
                         android:textColor="#C67171"
-                        android:textSize="18.0sp" />
+                        android:textSize="18.0dip" />
                     <!-- PM2.5数值 -->
                     <TextView
                         android:id="@+id/pm_data"

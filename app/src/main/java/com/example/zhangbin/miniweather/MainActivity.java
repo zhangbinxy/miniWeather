@@ -41,6 +41,7 @@ import cn.edu.pku.zhangbin.bean.pku.ss.zhangbin.Tomorrow1;
 import cn.edu.pku.zhangbin.bean.pku.ss.zhangbin.app.MyApplication;
 import util.NetUtil;
 
+import com.baidu.location.Address;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -95,7 +96,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     //定位功能
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
-    public BDLocation mBDLocation;
     private int indexofLocationCityname=1;
 
     //change the background picture 随着今日天气变换背景图片
@@ -114,8 +114,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         setContentView(R.layout.weather_info);          //把布局设置在主界面上
 
 
-        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
-        mLocationClient.registerLocationListener(myListener);    //注册监听函数
+
+
+
+
+
         mLocation = (ImageView) findViewById(R.id.title_location);//定位功能按钮，设置监听器
         mLocation.setOnClickListener(this);
 
@@ -139,11 +142,12 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         mShare.setOnClickListener(this);// 监听器
 
 
-        pmImg = (ImageView) findViewById(R.id.pm2_5_img);//这个有什么用？？？？？？？？？？？？？？？？？
-        //pmImg.setImageIcon();
+//        pmImg = (ImageView) findViewById(R.id.pm2_5_img);//这个有什么用？？？？？？？？？？？？？？？？？
+//        pmImg.setImageIcon();
 
         linearLayout = (LinearLayout) findViewById(R.id.citybackgroundpic);//找到要改变的布局
         resources = getResources();//得到所有图片资源
+
 
 
         initLocation();//初始化定位功能
@@ -157,10 +161,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 
 //开始定位功能，用两个list完成城市名称到城市数字的转换，之后调用queryWeatherCode方法传递当前定位城市数字
-        mBDLocation = new BDLocation();
-        mLocationClient.start();
-        mLocationClient.startIndoorMode();
-        mLocationClient.requestLocation();//??????????????/
+
+
+//        mLocationClient.startIndoorMode();
+//        mLocationClient.requestLocation();
         MyApplication myApplication = (MyApplication) getApplication();
         Iterator<City> it = myApplication.getmCityList().iterator();
 
@@ -172,7 +176,10 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             cityNumber.add(citynumberlocation);
         }
 
-        Log.d("问题：",mBDLocation.getLocType()+"");
+//        Log.d("问题：",mBDLocation.getLocType()+"");
+//        Log.d("city", mLocationClient.getLastKnownLocation().getCity());
+//        Log.d("citycode", mLocationClient.getLastKnownLocation().getCityCode());
+
         getWeatherDetail();
 
 
@@ -184,25 +191,27 @@ public class MainActivity extends Activity implements View.OnClickListener, View
             @Override
             public void run() {
                 int i = 0;
-                String strLastLoc = "";//存放最新的地址
+                String strLoc = "";
                 while (i < 3) {
-                    while (mLocationClient.getLastKnownLocation() == null) {//若果第一次启动app，地址信息可能为空，等待0.1秒
+
+                    while (mLocationClient.getLastKnownLocation()==null||mLocationClient.getLastKnownLocation().getCity()==null) {//若果第一次启动app，地址信息可能为空，等待0.1秒
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
                         }
                     }
-                    refreshWeatherDetail();//
+                    //refreshWeatherDetail();//
                     BDLocation lastLoc = mLocationClient.getLastKnownLocation();//存放定位得到的地址，以免每次请求消耗资源
-                    if (strLastLoc != lastLoc.getCity()) {//如果新地址与之前地址不相同，就更新天气信息
-                        strLastLoc = lastLoc.getCity();
+                    if (strLoc != lastLoc.getCity()) {//如果新地址与之前地址不相同，就更新天气信息
+                        strLoc = lastLoc.getCity();
+                        strLoc = strLoc.substring(0,strLoc.length()-1);
                         for (String string : cityName) {//从城市名称中找到定位城市，取得下标
-                            if (string.equals(strLastLoc)) {
-                                indexofLocationCityname = cityName.indexOf(strLastLoc);
+                            if (string.equals(strLoc)) {
+                                indexofLocationCityname = cityName.indexOf(strLoc);
                                 break;
                             }
                         }
-                        Log.d("定位城市 ", lastLoc.getCity() +"");
+                        Log.d("定位城市 ", strLoc +"");
                         Log.d("LocatedCity ",indexofLocationCityname+"");
                         SharedPreferences sharedPreferences = getSharedPreferences("LC",MODE_PRIVATE);//传递当前定位城市ID给城市列表的空选择（直接点击返回按钮的情况）
                         sharedPreferences.edit().putString("LocatedCity",cityNumber.get(indexofLocationCityname)).commit();
@@ -221,9 +230,27 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     }
 
-    void refreshWeatherDetail() {
-        if (indexofLocationCityname != 0)
-            queryWeatherCode(cityNumber.get(indexofLocationCityname));
+    //定位的初始化方法
+    private void initLocation() {
+        mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);    //注册监听函数
+
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备//这里比文档中多了一个LocationClientOption的引用
+        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
+        int span = 5000;
+        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);//可选，默认false,设置是否使用gps
+        option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
+        mLocationClient.setLocOption(option);
+
+        mLocationClient.start();
     }
 
     void initDots() {//圆点初始状态
@@ -533,7 +560,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                 TextView selCity=(TextView)findViewById(R.id.city);
 
 
-                queryWeatherCode(cityNumber.get(cityName.indexOf(selCity.getText().toString())));//请求城市代码
+                queryWeatherCode(cityNumber.get(cityName.indexOf(selCity.getText())));//请求城市代码
 
 
             } else {
@@ -545,7 +572,8 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
         if (view.getId() == R.id.title_location) {//点击定位按钮后，开启定位功能
             getWeatherDetail();
-//            Log.d("Location :", "正在定位 ");
+//            cityTv.setText(mLocationClient.getLastKnownLocation().getCity());
+            Toast.makeText(this, mLocationClient.getLastKnownLocation().getAddrStr(), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -1345,22 +1373,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
     }
 
-    //定位的初始化方法
-    private void initLocation() {
-        LocationClientOption option = new LocationClientOption();
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备//这里比文档中多了一个LocationClientOption的引用
-        option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span = 5000;
-        option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
-        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
-        option.setOpenGps(true);//可选，默认false,设置是否使用gps
-        option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
-        option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
-        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
-        option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
-        option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
-        option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
-        mLocationClient.setLocOption(option);
-    }
+
 
 }
