@@ -97,6 +97,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
     private int indexofLocationCityname=1;
+    private String strLoc = "";//存放定位城市
 
     //change the background picture 随着今日天气变换背景图片
     LinearLayout linearLayout;
@@ -150,7 +151,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 
 
 
-        initLocation();//初始化定位功能
+        initLocation();//初始化定位功能,关于初始化的位置放置，经过了好几天的调试，后来发现不能定位的原因包括apk、城市空指针、还有初始化的位置放置错误
 
         initViews(); //初始化六日天气的页面
 
@@ -180,18 +181,18 @@ public class MainActivity extends Activity implements View.OnClickListener, View
 //        Log.d("city", mLocationClient.getLastKnownLocation().getCity());
 //        Log.d("citycode", mLocationClient.getLastKnownLocation().getCityCode());
 
-        getWeatherDetail();
+        getAddressDetail();
 
 
 
     }
 
-    void getWeatherDetail() {//封装了请求地理位置信息的过程
+    void getAddressDetail() {//封装了请求地理位置信息的过程
         new Thread(new Runnable() {
             @Override
             public void run() {
                 int i = 0;
-                String strLoc = "";
+
                 while (i < 3) {
 
                     while (mLocationClient.getLastKnownLocation()==null||mLocationClient.getLastKnownLocation().getCity()==null) {//若果第一次启动app，地址信息可能为空，等待0.1秒
@@ -200,9 +201,9 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                         } catch (InterruptedException e) {
                         }
                     }
-                    //refreshWeatherDetail();//
+
                     BDLocation lastLoc = mLocationClient.getLastKnownLocation();//存放定位得到的地址，以免每次请求消耗资源
-                    if (strLoc != lastLoc.getCity()) {//如果新地址与之前地址不相同，就更新天气信息
+ //取消了之前判断条件，将strLoc设为全局变量
                         strLoc = lastLoc.getCity();
                         strLoc = strLoc.substring(0,strLoc.length()-1);
                         for (String string : cityName) {//从城市名称中找到定位城市，取得下标
@@ -212,12 +213,11 @@ public class MainActivity extends Activity implements View.OnClickListener, View
                             }
                         }
                         Log.d("定位城市 ", strLoc +"");
-                        Log.d("LocatedCity ",indexofLocationCityname+"");
+                        Log.d("定位城市ID ",indexofLocationCityname+"");
                         SharedPreferences sharedPreferences = getSharedPreferences("LC",MODE_PRIVATE);//传递当前定位城市ID给城市列表的空选择（直接点击返回按钮的情况）
                         sharedPreferences.edit().putString("LocatedCity",cityNumber.get(indexofLocationCityname)).commit();
                         queryWeatherCode(cityNumber.get(indexofLocationCityname));//从城市代码里找到城市的ID，然后传到查询天气方法中
 
-                    }
                     i++;
                 }
 
@@ -536,7 +536,6 @@ public class MainActivity extends Activity implements View.OnClickListener, View
     @Override
     public void onClick(View view) { //重写
 
-//        String code="";
         if (view.getId() == R.id.title_city_manager) {
             Intent i= new Intent(this, SelectCity.class);
             //startActivity(i);
@@ -571,7 +570,7 @@ public class MainActivity extends Activity implements View.OnClickListener, View
         }
 
         if (view.getId() == R.id.title_location) {//点击定位按钮后，开启定位功能
-            getWeatherDetail();
+            getAddressDetail();
 //            cityTv.setText(mLocationClient.getLastKnownLocation().getCity());
             Toast.makeText(this, mLocationClient.getLastKnownLocation().getAddrStr(), Toast.LENGTH_SHORT).show();
 

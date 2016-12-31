@@ -20,7 +20,7 @@
                 android:id="@+id/textViewdate4"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="美好的一天"
@@ -29,7 +29,7 @@
                 android:id="@+id/textViewdate5"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="美好的又一天"
@@ -38,7 +38,7 @@
                 android:id="@+id/textViewdate6"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
         </TableRow>
 
@@ -55,7 +55,7 @@
                 android:id="@+id/textViewTemp4"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="温暖"
@@ -64,7 +64,7 @@
                 android:id="@+id/textViewTemp5"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="惬意"
@@ -73,7 +73,7 @@
                 android:id="@+id/textViewTemp6"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
         </TableRow>
 
         <TableRow
@@ -118,7 +118,7 @@
                 android:id="@+id/textViewFeng4"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="微风"
@@ -127,7 +127,7 @@
                 android:id="@+id/textViewFeng5"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="无风"
@@ -136,7 +136,7 @@
                 android:id="@+id/textViewFeng6"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
         </TableRow>
 
     </RelativeLayout>

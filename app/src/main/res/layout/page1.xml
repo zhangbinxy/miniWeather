@@ -25,7 +25,7 @@
                 android:id="@+id/textViewdate1"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="date"
@@ -34,7 +34,7 @@
                 android:id="@+id/textViewdate2"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="date"
@@ -43,7 +43,7 @@
                 android:id="@+id/textViewdate3"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
         </TableRow>
 
@@ -62,7 +62,7 @@
                 android:id="@+id/textViewTemp1"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="wendu"
@@ -71,7 +71,7 @@
                 android:id="@+id/textViewTemp2"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="wendu"
@@ -80,7 +80,7 @@
                 android:id="@+id/textViewTemp3"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
         </TableRow>
 
         <TableRow
@@ -127,7 +127,7 @@
                 android:id="@+id/textViewFeng1"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="fengli"
@@ -136,7 +136,7 @@
                 android:id="@+id/textViewFeng2"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
 
             <TextView
                 android:text="fengli"
@@ -145,7 +145,7 @@
                 android:id="@+id/textViewFeng3"
                 android:gravity="center"
                 android:textColor="#000000"
-                android:textSize="20sp"/>
+                android:textSize="20dip"/>
         </TableRow>
 
     </RelativeLayout>
